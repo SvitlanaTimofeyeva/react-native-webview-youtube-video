@@ -1,0 +1,27 @@
+{
+  "name": "react-native-webview-youtube-video",
+  "version": "1.0.0",
+  "description": "Webview youtube video for iOS and Android (react-native)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SvitlanaTimofeyeva/react-native-webview-youtube-video.git"
+  },
+  "keywords": [
+    "react-native",
+    "react-native-video",
+    "react-native-webview-video",
+    "react-native-youtube",
+    "react-native-youtube-video",
+    "youtube"
+  ],
+  "author": "s.timofeyeva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SvitlanaTimofeyeva/react-native-webview-youtube-video/issues"
+  },
+  "homepage": "https://github.com/SvitlanaTimofeyeva/react-native-webview-youtube-video#readme"
+}
