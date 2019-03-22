@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, WebView, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+// import WebView from 'react-native-android-fullscreen-webview-video';
+import { WebView } from 'react-native-webview';
 import PropTypes from 'prop-types';
-import FullScreenWebView from 'react-native-android-fullscreen-webview-video';
-
 const styles = StyleSheet.create({
   container: {
     flex: 1
@@ -12,20 +12,6 @@ const styles = StyleSheet.create({
     minHeight: 250,
   }
 })
-
-
-const patchPostMessageFunction = function() {
-  var originalPostMessage = window.postMessage;
-  var patchedPostMessage = function(message, targetOrigin, transfer) {
-    originalPostMessage(message, targetOrigin, transfer);
-  };
-  patchedPostMessage.toString = function() {
-    return String(Object.hasOwnProperty).replace('hasOwnProperty', 'postMessage');
-  };
-  window.postMessage = patchedPostMessage;
-};
-
-const patchPostMessageJsCode = '(' + String(patchPostMessageFunction) + ')();';
 
 class YoutubeVideo extends Component {
 
@@ -87,31 +73,32 @@ class YoutubeVideo extends Component {
 
   // prevent navigation in webview
   navigationStateChangedHandler = ({url}) => {
-    if ((url.startsWith('https://') || url.startsWith('http://')) && url !== this.props.url) {
-      this.webview && this.webview.stopLoading();
-    }
+    // if ((url.startsWith('https://') || url.startsWith('http://')) && url !== this.props.url) {
+    //   this.webview && this.webview.stopLoading();
+    // }
   }
 
   render() {
     return (
       <View style={styles.container}>
-          <FullScreenWebView
+          <WebView
               ref={(c) => { this.webview = c }}
               style={styles.video}
               javaScriptEnabled={true}
               originWhitelist={['*']}
               onMessage={this.handleMessage}
+              domStorageEnabled={true}
+              mixedContentMode={'always'}
+              thirdPartyCookiesEnabled={true}
+              allowUniversalAccessFromFileURLs={true}
               onNavigationStateChange={this.navigationStateChangedHandler}
-              injectedJavaScript={patchPostMessageJsCode}
+
               html={`<html style="margin: 0; padding: 0; border: none;">
                   <body style="margin: 0; padding: 0; border: none;">
                     <div id="player" style="margin: 0; width: 100%; heigth: 100%; position: absolute; top: 0; bottom: 0;"></div>
                     <script type="text/javascript">
                       function sendMessage (data) {
-                        // to fix ios issue with postMessage not working without timeout
-                        setTimeout(function() {
-                          window.postMessage(data, "*")
-                        }, 1)
+                       window.ReactNativeWebView.postMessage(data.toString())
                       }
 
                       var player;

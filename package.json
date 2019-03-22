@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/SvitlanaTimofeyeva/react-native-webview-youtube-video/issues"
   },
-  "homepage": "https://github.com/SvitlanaTimofeyeva/react-native-webview-youtube-video#readme"
+  "homepage": "https://github.com/SvitlanaTimofeyeva/react-native-webview-youtube-video#readme",
+  "dependencies": {
+    "react-native-webview": "^5.4.1"
+  }
 }
